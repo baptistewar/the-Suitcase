@@ -49,3 +49,13 @@ section button{
     border: solid black; */
     padding : 1%;
 }
+
+#section1{
+    text-align: center;
+    font-size: 300%;
+    margin-top: 5%;
+}
+
+#section1 p{
+    font-size: 70%;
+}
