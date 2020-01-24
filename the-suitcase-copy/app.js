@@ -6,7 +6,7 @@ function loadPage(e) {
     .get(`/pages/${page}.html`)
     .then(res => {
       contentMain.innerHTML = res.data;
-      makeLinksWorking()
+      makeLinksWorking();
     })
     .catch(err => {
       console.error(err);
@@ -20,6 +20,7 @@ var submitList = [];
 var playersOrder = [];
 var playerNumber = 0;
 var looser = "";
+var wordRemove = "";
 
 function makeLinksWorking() {
   var objectList = document.getElementById("objectList");
@@ -32,7 +33,7 @@ function makeLinksWorking() {
 
 
   function test() {
-    let newArray = [...submitList]
+    let newArray = [...submitList];
     newArray.pop();
     if (hiddenList.join() === newArray.join()) return true;
     else return false;
@@ -40,7 +41,7 @@ function makeLinksWorking() {
 
   function addWordToArray() {
     let addWord = document.getElementById("newWord").value;
-    submitList.push(addWord)
+    submitList.push(addWord);
   }
 
   function printWords() {
@@ -49,21 +50,40 @@ function makeLinksWorking() {
     const li = document.createElement("li");
     li.textContent = addWord;
     objectList.appendChild(li);
+    start()
 
     document.getElementById("newWord").value = "";
     document.getElementById("newWord").focus();
   }
 
+  function start() {
+    const items = document.querySelectorAll("li");
+
+    items.forEach(function (item) {
+      item.onclick = function (evt) {
+        wordRemove = evt.target.innerHTML
+        submitList.splice(submitList.indexOf(wordRemove), 1);
+        playersArray.splice(playersArray.indexOf(wordRemove), 1);
+        evt.target.remove();
+      };
+    });
+  }
 
   function clearWords() {
     objectList.innerHTML = "";
   }
 
   if (document.getElementById("btnOk") !== null) {
+    let addWord = document.getElementById("newWord");
     var btnOk = document.getElementById("btnOk");
     btnOk.onclick = function () {
-      addWordToArray()
-      printWords()
+      if (addWord.value.match(/\w+/)) {
+        addWordToArray();
+        printWords();
+      }
+      else {
+        alert("please enter a word or serie of words")
+      }
     }
   }
 
@@ -80,19 +100,20 @@ function makeLinksWorking() {
     var btnSubmit = document.getElementById("btnSubmit");
     btnSubmit.onclick = function () {
       if (test()) {
-        clearWords()
-        hiddenList = [...submitList]
+        clearWords();
+        hiddenList = [...submitList];
         submitList = [];
         nextPlayer();
         player.innerHTML = playersOrder[playerNumber];
+        document.getElementById("newWord").focus();
       }
       else {
-        looser = playersOrder[playerNumber]
+        looser = playersOrder[playerNumber];
         axios
           .get(`/pages/lose.html`)
           .then(res => {
             contentMain.innerHTML = res.data;
-            makeLinksWorking()
+            makeLinksWorking();
           })
           .catch(err => {
             console.error(err);
@@ -107,23 +128,23 @@ function makeLinksWorking() {
   }
 
   if (document.getElementById("playerName") !== null) {
-    firstPlayer()
+    firstPlayer();
   }
 
   function displayLoosingPlayer() {
     loosingPlayer.innerHTML = looser;
-    winningSequence.innerHTML = hiddenList.join(" ");
+    winningSequence.innerHTML = hiddenList.join(" - ");
   }
 
   if (document.getElementById("loosingPlayer") !== null) {
-    displayLoosingPlayer()
+    displayLoosingPlayer();
   }
 
   function turnOrder() {
     let copyPlayers = [...playersArray]
     while (copyPlayers.length !== 0) {
-      let random = Math.floor(Math.random() * copyPlayers.length)
-      playersOrder.push(copyPlayers[random])
+      let random = Math.floor(Math.random() * copyPlayers.length);
+      playersOrder.push(copyPlayers[random]);
       copyPlayers.splice(random, 1)
     }
   }
@@ -131,7 +152,7 @@ function makeLinksWorking() {
 
   function nextPlayer() {
     if (playerNumber < playersOrder.length - 1) playerNumber++;
-    else playerNumber = 0
+    else playerNumber = 0;
   }
 
 
@@ -142,7 +163,7 @@ function makeLinksWorking() {
         .get(`/pages/players.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
-          makeLinksWorking()
+          makeLinksWorking();
         })
         .catch(err => {
           console.error(err);
@@ -158,7 +179,7 @@ function makeLinksWorking() {
         .get(`/pages/rules.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
-          makeLinksWorking()
+          makeLinksWorking();
         })
         .catch(err => {
           console.error(err);
@@ -173,6 +194,7 @@ function makeLinksWorking() {
     const li = document.createElement("li");
     li.textContent = addPlayer;
     playersList.appendChild(li);
+    start();
 
     document.getElementById("newPlayer").value = "";
     document.getElementById("newPlayer").focus();
@@ -180,15 +202,15 @@ function makeLinksWorking() {
 
   function addPlayerToArray() {
     let addPlayer = document.getElementById("newPlayer").value;
-    playersArray.push(addPlayer)
+    playersArray.push(addPlayer);
   }
 
 
   if (document.getElementById("btnAdd") !== null) {
     var btnAdd = document.getElementById("btnAdd");
     btnAdd.onclick = function () {
-      addPlayerToArray()
-      printPlayers()
+      addPlayerToArray();
+      printPlayers();
     }
   }
 
@@ -204,12 +226,47 @@ function makeLinksWorking() {
   if (document.getElementById("btnStart") !== null) {
     var btnStart = document.getElementById("btnStart");
     btnStart.onclick = function () {
-      turnOrder()
+      turnOrder();
       axios
         .get(`/pages/game.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
-          makeLinksWorking()
+          makeLinksWorking();
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      // player.innerHTML = playersOrder[playerNumber];
+    }
+  }
+
+  if (document.getElementById("btnHome") !== null) {
+    var btnHome = document.getElementById("btnHome");
+    btnHome.onclick = function () {
+      axios
+        .get(`/pages/home.html`)
+        .then(res => {
+          contentMain.innerHTML = res.data;
+          makeLinksWorking();
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      // player.innerHTML = playersOrder[playerNumber];
+    }
+  }
+
+  if (document.getElementById("btnAgain") !== null) {
+    var btnAgain = document.getElementById("btnAgain");
+    btnAgain.onclick = function () {
+      turnOrder();
+      hiddenList = []
+      submitList = []
+      axios
+        .get(`/pages/game.html`)
+        .then(res => {
+          contentMain.innerHTML = res.data;
+          makeLinksWorking();
         })
         .catch(err => {
           console.error(err);
@@ -221,10 +278,9 @@ function makeLinksWorking() {
 
 
 
-
   document
     .querySelectorAll("#nav-main .link")
     .forEach(link => (link.onclick = loadPage));
 
 }
-makeLinksWorking()
+makeLinksWorking();

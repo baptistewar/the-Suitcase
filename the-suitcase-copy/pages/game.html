@@ -1,22 +1,23 @@
-
 <section id="section1">
     <nav id="nav-main">
         <a data-page="home" class="link">home</a>
-        <a data-page="rules" class="link">rules</a>
     </nav>
     <hr>
-    <h1><span id="playerName">Player</span>'s turn</h1>
-    <p>In my suitcase, i have...</p>
-    <div>
-        <input type="text" placeholder="objects" id="newWord">
+    <div id="playerTurn">
+        <h1><span id="playerName">Player</span>'s turn</h1>
+        <p>In my suitcase, I have...</p>
+    </div>
+    <div id="enterPlayers">
+        <input type="text" autocomplete="off" placeholder="objects" id="newWord">
         <button id="btnOk">OK</button>
     </div>
-    <div>
-        <ul id="objectList">
-        </ul>
+    <div id="suitcase">
+        <ol id="objectList">
+        </ol>
+        <img class="travolta" src="https://media.giphy.com/media/l2YWjo0mz9WcDFiW4/giphy.gif" alt="travolta-valise">
 
     </div>
-    <div>
+    <div id="submitDiv">
         <button id="btnSubmit">submit</button>
     </div>
 </section>
