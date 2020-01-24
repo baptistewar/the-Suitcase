@@ -3,7 +3,7 @@ const contentMain = document.getElementById("content-main");
 function loadPage(e) {
   const page = e.target.getAttribute("data-page");
   axios
-    .get(`/pages/${page}.html`)
+    .get(`./pages/${page}.html`)
     .then(res => {
       contentMain.innerHTML = res.data;
       makeLinksWorking();
@@ -110,7 +110,7 @@ function makeLinksWorking() {
       else {
         looser = playersOrder[playerNumber];
         axios
-          .get(`/pages/lose.html`)
+          .get(`./pages/lose.html`)
           .then(res => {
             contentMain.innerHTML = res.data;
             makeLinksWorking();
@@ -160,7 +160,7 @@ function makeLinksWorking() {
     var btnPlay = document.getElementById("btnPlay");
     btnPlay.onclick = function () {
       axios
-        .get(`/pages/players.html`)
+        .get(`./pages/players.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
           makeLinksWorking();
@@ -176,7 +176,7 @@ function makeLinksWorking() {
     var btnRules = document.getElementById("btnRules");
     btnRules.onclick = function () {
       axios
-        .get(`/pages/rules.html`)
+        .get(`./pages/rules.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
           makeLinksWorking();
@@ -228,7 +228,7 @@ function makeLinksWorking() {
     btnStart.onclick = function () {
       turnOrder();
       axios
-        .get(`/pages/game.html`)
+        .get(`./pages/game.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
           makeLinksWorking();
@@ -244,7 +244,7 @@ function makeLinksWorking() {
     var btnHome = document.getElementById("btnHome");
     btnHome.onclick = function () {
       axios
-        .get(`/pages/home.html`)
+        .get(`./pages/home.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
           makeLinksWorking();
@@ -263,7 +263,7 @@ function makeLinksWorking() {
       hiddenList = []
       submitList = []
       axios
-        .get(`/pages/game.html`)
+        .get(`./pages/game.html`)
         .then(res => {
           contentMain.innerHTML = res.data;
           makeLinksWorking();
