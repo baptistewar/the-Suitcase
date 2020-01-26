@@ -107,7 +107,7 @@ a:hover{
     flex-wrap: wrap;
     margin-left: 25vh;
     margin-right: 25vh;
-    text-align: center;
+    /* text-align: center; */
 }
 
 #playerTurn{
@@ -142,12 +142,12 @@ a:hover{
 #objectList{
     display:flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     font-size: 120%;
     height: 30vh;
     flex-wrap: wrap;
-    text-align: center;
-    width:50vh;
+    /* text-align: left; */
+    width:60%;
 }
 
 #suitcase{
@@ -165,6 +165,10 @@ a:hover{
 }
 
 #newWord{
+    width:40vh;
+}
+
+#newPlayer{
     width:40vh;
 }
 
@@ -202,3 +206,4 @@ a:hover{
 .answer{
     font-size: 150%;
 }
+

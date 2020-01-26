@@ -14,7 +14,7 @@ function loadPage(e) {
 
 }
 
-const playersArray = [];
+var playersArray = [];
 var hiddenList = [];
 var submitList = [];
 var playersOrder = [];
@@ -35,7 +35,7 @@ function makeLinksWorking() {
   function test() {
     let newArray = [...submitList];
     newArray.pop();
-    if (hiddenList.join() === newArray.join()) return true;
+    if (hiddenList.join().toLowerCase() === newArray.join().toLowerCase()) return true;
     else return false;
   }
 
@@ -118,7 +118,7 @@ function makeLinksWorking() {
           .catch(err => {
             console.error(err);
           });
-
+          
       }
     }
   }
@@ -159,6 +159,10 @@ function makeLinksWorking() {
   if (document.getElementById("btnPlay") !== null) {
     var btnPlay = document.getElementById("btnPlay");
     btnPlay.onclick = function () {
+      playersOrder=[];
+      playersArray = [];
+      hiddenList = [];
+      submitList = [];
       axios
         .get(`./pages/players.html`)
         .then(res => {
